@@ -14,7 +14,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_connect/my_requests.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'new_event.dart';
-
+import 'firebase_options.dart';
 import 'package:health_connect/create_request_1.dart';
 import 'screens/signin.dart';
 
@@ -32,7 +32,9 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   // subscribe to topic on each app start-up
   await FirebaseMessaging.instance.subscribeToTopic('message');
 
