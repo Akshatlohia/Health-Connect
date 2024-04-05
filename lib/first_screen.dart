@@ -10,16 +10,21 @@ class FirstScreen extends StatefulWidget {
 
 class _FirstScreenState extends State<FirstScreen> {
   @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration(seconds: 2), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => SignIn()),
+      );
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SignIn()));
-      },
-      child: Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(image: AssetImage("images/f.jpeg"))),
-      ),
+    return Container(
+      decoration: const BoxDecoration(
+          image: DecorationImage(image: AssetImage("images/f.jpeg"))),
     );
   }
 }

@@ -31,6 +31,7 @@ class _SignInState extends State<SignIn> {
                     onChanged: (text) {
                       email = text;
                     },
+                    style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       fillColor: Color(0xFFFF6A6A),
                       filled: true,
@@ -48,6 +49,7 @@ class _SignInState extends State<SignIn> {
                     onChanged: (text) {
                       password = text;
                     },
+                    style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       fillColor: Color(0xFFFF6A6A),
                       filled: true,
@@ -75,7 +77,7 @@ class _SignInState extends State<SignIn> {
                   ),
                   child: ElevatedButton(
                       onPressed: () async {
-                        await log_in(email, password);
+                        // await log_in(email, password);
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) => MyApp()));
                       },
@@ -95,7 +97,8 @@ class _SignInState extends State<SignIn> {
                               child: Text(
                             "Sign In",
                             style: TextStyle(
-                              fontSize: 28,
+                              fontSize: 20,
+                              color: Colors.white,
                             ),
                           )))),
                 ),

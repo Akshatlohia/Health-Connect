@@ -35,8 +35,9 @@ class _SignUpState extends State<SignUp> {
                       const EdgeInsets.only(left: 20.0, right: 20, top: 20),
                   child: TextField(
                     onChanged: (text) {
-                      email = text;
+                      name = text;
                     },
+                    style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       fillColor: Color(0xFFFF6A6A),
                       filled: true,
@@ -53,6 +54,7 @@ class _SignUpState extends State<SignUp> {
                     onChanged: (text) {
                       email = text;
                     },
+                    style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       fillColor: Color(0xFFFF6A6A),
                       filled: true,
@@ -67,8 +69,10 @@ class _SignUpState extends State<SignUp> {
                       const EdgeInsets.only(left: 20.0, right: 20, top: 10),
                   child: TextField(
                     onChanged: (text) {
-                      email = text;
+                      password = text;
                     },
+                    obscureText: true,
+                    style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       fillColor: Color(0xFFFF6A6A),
                       filled: true,
@@ -83,8 +87,9 @@ class _SignUpState extends State<SignUp> {
                       const EdgeInsets.only(left: 20.0, right: 20, top: 10),
                   child: TextField(
                     onChanged: (text) {
-                      email = text;
+                      // email = text;
                     },
+                    style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       fillColor: Color(0xFFFF6A6A),
                       filled: true,
@@ -99,7 +104,7 @@ class _SignUpState extends State<SignUp> {
                       const EdgeInsets.only(left: 20.0, right: 20, top: 18),
                   child: ElevatedButton(
                       onPressed: () async {
-                        await sign_up(name, email, password);
+                        // await sign_up(name, email, password);
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) => MyApp()));
                       },
@@ -119,7 +124,8 @@ class _SignUpState extends State<SignUp> {
                               child: Text(
                             "Sign Up",
                             style: TextStyle(
-                              fontSize: 28,
+                              color: Colors.white,
+                              fontSize: 20,
                             ),
                           )))),
                 ),

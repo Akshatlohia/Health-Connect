@@ -35,20 +35,22 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  print('1');
   // subscribe to topic on each app start-up
   await FirebaseMessaging.instance.subscribeToTopic('message');
-
+  print('2');
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
-
+  print('3');
   await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
     alert: true,
     badge: true,
     sound: true,
   );
+  print('4');
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     // home: LowBp(),
@@ -97,13 +99,12 @@ class _MyAppState extends State<MyApp> {
         elevation: 5,
         shape: CircularNotchedRectangle(),
         color: Color(0xFFFB4B4B),
-        child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
+        child: Expanded(
+          child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -132,16 +133,19 @@ class _MyAppState extends State<MyApp> {
                                 ? Colors.white
                                 : Colors.black,
                           )),
+                      const Padding(
+                        padding: EdgeInsets.all(15),
+                      )
                     ],
                   ),
                 ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                Expanded(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      Padding(
+                        padding: EdgeInsets.all(15),
+                      ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: IconButton(
@@ -171,8 +175,8 @@ class _MyAppState extends State<MyApp> {
                     ],
                   ),
                 ),
-              ),
-            ]),
+              ]),
+        ),
       ),
     ));
   }
@@ -255,7 +259,7 @@ class _HomePageState extends State<HomePage> {
   List<dynamic> data = [];
 
   Future sol() async {
-    await log_in("sam@gmail.com", "1234567");
+    await log_in("akshat@gmail.com", "1234567");
     data = await get_data(token);
   }
 
@@ -299,7 +303,7 @@ class _HomePageState extends State<HomePage> {
                         width: 10,
                       ),
                       Text(
-                        "Hi, Samarth",
+                        "Hi, Akshat",
                         style: TextStyle(
                             fontWeight: FontWeight.w600, fontSize: 18),
                       ),
