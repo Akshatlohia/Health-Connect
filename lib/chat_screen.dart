@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:health_connect/networking.dart';
 import 'package:health_connect/personal_chat.dart';
+import 'package:health_connect/screens/profile_screen.dart';
 
 class ChatScreen extends StatefulWidget {
   @override
@@ -11,7 +13,7 @@ class _ChatScreenState extends State<ChatScreen> {
   List<dynamic> data = [];
 
   Future sol() async {
-    await log_in("sam@gmail.com", "1234567");
+    await log_in("akshat@gmail.com", "1234567");
     data = await get_user_chat();
   }
 
@@ -20,10 +22,17 @@ class _ChatScreenState extends State<ChatScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: Row(
             children: [
-              CircleAvatar(
-                backgroundImage: AssetImage("images/img2.jpg"),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ProfilePage()));
+                },
+                child: CircleAvatar(
+                  backgroundImage: AssetImage("images/img2.jpg"),
+                ),
               ),
               SizedBox(
                 width: 10,

@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:health_connect/networking.dart';
+import 'package:health_connect/screens/profile_screen.dart';
 import 'package:health_connect/widgets/category.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'widgets/my_card.dart';
@@ -18,7 +20,7 @@ class _MyRequestsState extends State<MyRequests> {
   }
 
   Future sol() async {
-    await log_in("sam@gmail.com", "1234567");
+    await log_in("akshat@gmail.com", "1234567");
     data = await get_my_requests();
   }
 
@@ -57,8 +59,16 @@ class _MyRequestsState extends State<MyRequests> {
                 children: [
                   Row(
                     children: [
-                      CircleAvatar(
-                        backgroundImage: AssetImage("images/img2.jpg"),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProfilePage()));
+                        },
+                        child: CircleAvatar(
+                          backgroundImage: AssetImage("images/img2.jpg"),
+                        ),
                       ),
                       SizedBox(
                         width: 10,

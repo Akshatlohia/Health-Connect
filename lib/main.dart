@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:health_connect/first_screen.dart';
 import 'package:health_connect/screens/create_request.dart';
 import 'package:health_connect/chat_screen.dart';
 import 'package:health_connect/personal_chat.dart';
 import 'package:health_connect/screens/details.dart';
+import 'package:health_connect/screens/profile_screen.dart';
 import 'package:health_connect/screens/signin.dart';
 import 'package:health_connect/screens/signup.dart';
 import 'package:health_connect/widgets/category.dart';
@@ -37,7 +39,7 @@ void main() async {
   );
   print('1');
   // subscribe to topic on each app start-up
-  await FirebaseMessaging.instance.subscribeToTopic('message');
+  // await FirebaseMessaging.instance.subscribeToTopic('message');
   print('2');
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await flutterLocalNotificationsPlugin
@@ -88,8 +90,8 @@ class _MyAppState extends State<MyApp> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: GestureDetector(
         onTap: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => NewEvent()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => CreateRequest()));
         },
         child: Image(
           image: AssetImage("images/button.png"),
@@ -296,8 +298,16 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Row(
                     children: [
-                      CircleAvatar(
-                        backgroundImage: AssetImage("images/img2.jpg"),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProfilePage()));
+                        },
+                        child: CircleAvatar(
+                          backgroundImage: AssetImage("images/img2.jpg"),
+                        ),
                       ),
                       SizedBox(
                         width: 10,

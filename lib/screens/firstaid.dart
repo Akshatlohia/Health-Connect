@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:health_connect/screens/firstAidScreens/bee_sting.dart';
 import 'package:health_connect/screens/firstAidScreens/burns.dart';
 import 'package:health_connect/screens/firstAidScreens/drowning.dart';
 import 'package:health_connect/screens/firstAidScreens/fractures.dart';
 import 'package:health_connect/screens/firstAidScreens/low_bp.dart';
+import 'package:health_connect/screens/profile_screen.dart';
 
 class FirstAid extends StatefulWidget {
   const FirstAid({Key? key}) : super(key: key);
@@ -48,8 +50,16 @@ class _FirstAidState extends State<FirstAid> {
                     padding: const EdgeInsets.only(bottom: 25),
                     child: Row(
                       children: [
-                        CircleAvatar(
-                          backgroundImage: AssetImage("images/img2.jpg"),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ProfilePage()));
+                          },
+                          child: CircleAvatar(
+                            backgroundImage: AssetImage("images/img2.jpg"),
+                          ),
                         ),
                         SizedBox(
                           width: 10,

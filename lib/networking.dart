@@ -7,22 +7,23 @@ String token = "";
 
 Future sign_up(String name, String email, String password) async {
   print(email);
-  http.Response response = await http.post(
-      Uri.parse('https://clumsy-coders-hint.herokuapp.com/users/signup'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode({
-        "name": name,
-        "email": email,
-        "password": password,
-      }));
+  http.Response response =
+      await http.post(Uri.parse('http://13.126.226.188:3000/users/signup'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode({
+            "name": name,
+            "email": email,
+            "password": password,
+          }));
 
-  //print(response.body);
+  print({response});
   var data = jsonDecode(response.body);
-  token = data["token"];
-  print(data);
-  print(token);
+  // token = data["token"];
+  // print(data);
+  // print(token);
+  print('2');
   return data;
 }
 
@@ -89,7 +90,8 @@ Future get_data(String fid) async {
       blood.add(i);
     else if (i["needed"] == "Medicine")
       medicine.add(i);
-    else if(i["needed"]=="Fund Raiser")funds.add(i);
+    else if (i["needed"] == "Fund Raiser")
+      funds.add(i);
     else
       others.add(i);
   }
@@ -262,8 +264,8 @@ Future update_request(String id) async {
   return data;
 }
 
-Future raise_funds(String amount,String description,String link,String name) async {
-
+Future raise_funds(
+    String amount, String description, String link, String name) async {
   print("Hello");
   http.Response response = await http.post(
       Uri.parse("https://clumsy-coders-hint.herokuapp.com/requests/addRequest"),
@@ -272,7 +274,7 @@ Future raise_funds(String amount,String description,String link,String name) asy
         'Authorization': 'Bearer $token',
       },
       body: jsonEncode({
-        "title" : name,
+        "title": name,
         "driveLink": link,
         "needed": "Fund Raiser",
         "quantity": amount,
@@ -288,7 +290,7 @@ Future raise_funds(String amount,String description,String link,String name) asy
   // return chat_id;
 }
 
-Future update_fund(String id,int amount) async {
+Future update_fund(String id, int amount) async {
   //print(token);
   http.Response response = await http.patch(
       Uri.parse(
@@ -298,5 +300,5 @@ Future update_fund(String id,int amount) async {
         'Authorization': 'Bearer $token',
       },
       body: jsonEncode({"id": id, "completedAmount": amount}));
-      print(response.body);
+  print(response.body);
 }
