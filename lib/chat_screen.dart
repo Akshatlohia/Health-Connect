@@ -5,6 +5,10 @@ import 'package:health_connect/personal_chat.dart';
 import 'package:health_connect/screens/profile_screen.dart';
 
 class ChatScreen extends StatefulWidget {
+  String userEmail, userPassword;
+
+  ChatScreen({required this.userEmail, required this.userPassword});
+
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
@@ -12,8 +16,8 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   List<dynamic> data = [];
 
-  Future sol() async {
-    await log_in("akshat@gmail.com", "1234567");
+  Future sol(String email, String password) async {
+    await log_in(email, password);
     data = await get_user_chat();
   }
 
@@ -86,7 +90,7 @@ class _ChatScreenState extends State<ChatScreen> {
               child: CircularProgressIndicator(),
             );
           },
-          future: sol(),
+          future: sol(widget.userEmail, widget.userPassword),
         ),
       ),
     );

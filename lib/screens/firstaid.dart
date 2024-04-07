@@ -65,7 +65,7 @@ class _FirstAidState extends State<FirstAid> {
                           width: 10,
                         ),
                         Text(
-                          "Hi, Akshat",
+                          "First-Aid Procedures",
                           style: TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 18),
                         ),

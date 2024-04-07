@@ -3,6 +3,13 @@ import 'package:health_connect/main.dart';
 import 'package:health_connect/networking.dart';
 import 'package:health_connect/screens/signup.dart';
 
+class User {
+  final String userEmail;
+  final String userPassword;
+
+  User(this.userEmail, this.userPassword);
+}
+
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
 
@@ -80,11 +87,11 @@ class _SignInState extends State<SignIn> {
                       ),
                       child: ElevatedButton(
                           onPressed: () async {
-                            // await log_in(email, password);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => MyApp()));
+                            await log_in(email, password);
+                            print('login done');
+
+                            Navigator.pushNamed(context, "main",
+                                arguments: User(email, password));
                           },
                           style: ButtonStyle(
                             shape: MaterialStateProperty.all<

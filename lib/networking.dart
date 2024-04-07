@@ -7,21 +7,22 @@ String token = "";
 
 Future sign_up(String name, String email, String password) async {
   print(email);
-  http.Response response =
-      await http.post(Uri.parse('http://13.126.226.188:3000/users/signup'),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-          },
-          body: jsonEncode({
-            "name": name,
-            "email": email,
-            "password": password,
-          }));
+  var url = 'http://13.126.226.188:3000/users/signup';
 
-  print({response});
+  final response = await http.post(Uri.parse(url),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({
+        "name": name,
+        "email": email,
+        "password": password,
+      }));
+
+  print(response.statusCode);
   var data = jsonDecode(response.body);
   // token = data["token"];
-  // print(data);
+  print('Response body: ${response.body}');
   // print(token);
   print('2');
   return data;
@@ -29,15 +30,15 @@ Future sign_up(String name, String email, String password) async {
 
 Future log_in(String email, String password) async {
   print(email);
-  http.Response response = await http.post(
-      Uri.parse('https://clumsy-coders-hint.herokuapp.com/users/login'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode({
-        "email": email,
-        "password": password,
-      }));
+  http.Response response =
+      await http.post(Uri.parse('http://13.126.226.188:3000/users/login'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode({
+            "email": email,
+            "password": password,
+          }));
 
   print(response.statusCode);
   var data = jsonDecode(response.body);
@@ -50,7 +51,7 @@ Future create_request(String location, String category, String btype,
     String quantity, String description) async {
   print("Hello");
   http.Response response = await http.post(
-      Uri.parse("https://clumsy-coders-hint.herokuapp.com/requests/addRequest"),
+      Uri.parse("http://13.126.226.188:3000/requests/addRequest"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',
@@ -70,7 +71,7 @@ Future create_request(String location, String category, String btype,
 Future get_data(String fid) async {
   //print("Hello");
   http.Response response = await http.get(
-    Uri.parse("https://clumsy-coders-hint.herokuapp.com/requests/getAll"),
+    Uri.parse("http://13.126.226.188:3000/requests/getAll"),
     headers: <String, String>{
       'Authorization': 'Bearer $token',
     },
@@ -97,7 +98,7 @@ Future get_data(String fid) async {
   }
 
   http.Response response2 = await http.patch(
-      Uri.parse("https://clumsy-coders-hint.herokuapp.com/users/updateProfile"),
+      Uri.parse("http://13.126.226.188:3000/users/updateProfile"),
       headers: <String, String>{
         'Authorization': 'Bearer $token',
       },
@@ -118,7 +119,7 @@ Future get_data(String fid) async {
 Future get_my_requests() async {
   //print("Hello");
   http.Response response = await http.get(
-    Uri.parse("https://clumsy-coders-hint.herokuapp.com/users/getRequests"),
+    Uri.parse("http://13.126.226.188:3000/users/getRequests"),
     headers: <String, String>{
       'Authorization': 'Bearer $token',
     },
@@ -191,15 +192,15 @@ Future send_notif_personal(String description, String fid) async {
 
 Future start_chat(String id) async {
   print("Hello");
-  http.Response response = await http.post(
-      Uri.parse("https://clumsy-coders-hint.herokuapp.com/chats/initialize"),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer $token',
-      },
-      body: jsonEncode({
-        "id": id,
-      }));
+  http.Response response =
+      await http.post(Uri.parse("http://13.126.226.188:3000/chats/initialize"),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer $token',
+          },
+          body: jsonEncode({
+            "id": id,
+          }));
   var temp = json.decode(response.body);
   String chat_id = temp["chat"]["_id"];
 
@@ -209,7 +210,7 @@ Future start_chat(String id) async {
 Future get_chat(String id) async {
   print("Hello");
   http.Response response = await http.get(
-      Uri.parse("https://clumsy-coders-hint.herokuapp.com/chats/$id"),
+      Uri.parse("http://13.126.226.188:3000/chats/$id"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',
@@ -222,13 +223,13 @@ Future get_chat(String id) async {
 
 Future send_chat(String id, String message) async {
   print("Hello");
-  http.Response response = await http.post(
-      Uri.parse("https://clumsy-coders-hint.herokuapp.com/chats/sendChat"),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer $token',
-      },
-      body: jsonEncode({"id": id, "message": message}));
+  http.Response response =
+      await http.post(Uri.parse("http://13.126.226.188:3000/chats/sendChat"),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer $token',
+          },
+          body: jsonEncode({"id": id, "message": message}));
 
   var temp = json.decode(response.body);
   String chat_id = temp["chat"]["_id"];
@@ -241,7 +242,7 @@ Future send_chat(String id, String message) async {
 Future get_user_chat() async {
   //print(token);
   http.Response response = await http.get(
-      Uri.parse("https://clumsy-coders-hint.herokuapp.com/users/getChats"),
+      Uri.parse("http://13.126.226.188:3000/users/getChats"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',
@@ -253,8 +254,7 @@ Future get_user_chat() async {
 Future update_request(String id) async {
   //print(token);
   http.Response response = await http.patch(
-      Uri.parse(
-          "https://clumsy-coders-hint.herokuapp.com/requests/updateRequest"),
+      Uri.parse("http://13.126.226.188:3000/requests/updateRequest"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',
@@ -268,7 +268,7 @@ Future raise_funds(
     String amount, String description, String link, String name) async {
   print("Hello");
   http.Response response = await http.post(
-      Uri.parse("https://clumsy-coders-hint.herokuapp.com/requests/addRequest"),
+      Uri.parse("http://13.126.226.188:3000/requests/addRequest"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',
@@ -293,8 +293,7 @@ Future raise_funds(
 Future update_fund(String id, int amount) async {
   //print(token);
   http.Response response = await http.patch(
-      Uri.parse(
-          "https://clumsy-coders-hint.herokuapp.com/requests/updateRequest"),
+      Uri.parse("http://13.126.226.188:3000/requests/updateRequest"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',

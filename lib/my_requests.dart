@@ -7,7 +7,11 @@ import 'package:toggle_switch/toggle_switch.dart';
 import 'widgets/my_card.dart';
 
 class MyRequests extends StatefulWidget {
-  const MyRequests({Key? key}) : super(key: key);
+  String userEmail, userPassword;
+
+  MyRequests({required this.userEmail, required this.userPassword});
+
+  // MyRequests({required this.userEmail, required this.userPassword});
 
   @override
   _MyRequestsState createState() => _MyRequestsState();
@@ -15,12 +19,9 @@ class MyRequests extends StatefulWidget {
 
 class _MyRequestsState extends State<MyRequests> {
   List<dynamic> data = [];
-  void tog() {
-    sol();
-  }
 
-  Future sol() async {
-    await log_in("akshat@gmail.com", "1234567");
+  Future sol(String email, String password) async {
+    await log_in(email, password);
     data = await get_my_requests();
   }
 
@@ -121,11 +122,13 @@ class _MyRequestsState extends State<MyRequests> {
                           }
 
                           print(snapshot.connectionState);
+                          print("my request page");
+                          print(widget.userEmail);
                           return Center(
                             child: CircularProgressIndicator(),
                           );
                         },
-                        future: sol(),
+                        future: sol(widget.userEmail, widget.userPassword),
                       ),
                     ),
                   )

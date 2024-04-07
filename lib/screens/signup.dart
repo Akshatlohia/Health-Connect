@@ -11,7 +11,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  String name = ' ', email = ' ', password = ' ';
+  String name = "", email = "", password = "";
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -47,7 +47,7 @@ class _SignUpState extends State<SignUp> {
                           filled: true,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10)),
-                          hintText: '   Full Name',
+                          hintText: "   Full Name",
                         ),
                       ),
                     ),
@@ -64,7 +64,7 @@ class _SignUpState extends State<SignUp> {
                           filled: true,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10)),
-                          hintText: '   Email',
+                          hintText: "   Email",
                         ),
                       ),
                     ),
@@ -113,7 +113,7 @@ class _SignUpState extends State<SignUp> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => MyApp()));
+                                    builder: (context) => SignIn()));
                           },
                           style: ButtonStyle(
                             shape: MaterialStateProperty.all<

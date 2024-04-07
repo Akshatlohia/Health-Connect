@@ -39,7 +39,7 @@ void main() async {
   );
   print('1');
   // subscribe to topic on each app start-up
-  // await FirebaseMessaging.instance.subscribeToTopic('message');
+  await FirebaseMessaging.instance.subscribeToTopic('message');
   print('2');
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await flutterLocalNotificationsPlugin
@@ -59,6 +59,11 @@ void main() async {
 
     theme: ThemeData(hintColor: Colors.white),
     home: FirstScreen(),
+    // initialRoute: '/',
+    routes: {
+      // '/': (context) => SignIn(),
+      'main': (context) => MyApp(),
+    },
   ));
 }
 
@@ -81,9 +86,24 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int current_screen = 0;
-  List<dynamic> screens = [HomePage(), MyRequests(), ChatScreen(), FirstAid()];
+  List<dynamic> screens = [
+    // HomePage(),
+    // MyRequests(userEmail: args.userEmail, userPassword: args.userPassword),
+    // ChatScreen(),
+    // FirstAid()
+  ];
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as User;
+    screens = [
+      HomePage(),
+      MyRequests(userEmail: args.userEmail, userPassword: args.userPassword),
+      ChatScreen(userEmail: args.userEmail, userPassword: args.userPassword),
+      FirstAid()
+    ];
+    print(args.userEmail);
+    print(args.userPassword);
+
     return SafeArea(
         child: Scaffold(
       body: screens[current_screen],
@@ -101,84 +121,79 @@ class _MyAppState extends State<MyApp> {
         elevation: 5,
         shape: CircularNotchedRectangle(),
         color: Color(0xFFFB4B4B),
-        child: Expanded(
-          child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
+        child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: IconButton(
+                        onPressed: () {
+                          current_screen = 0;
+                          setState(() {});
+                        },
+                        icon: FaIcon(FontAwesomeIcons.house),
+                        color:
+                            (current_screen == 0) ? Colors.white : Colors.black,
+                      ),
+                    ),
+                    Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: IconButton(
                           onPressed: () {
-                            current_screen = 0;
+                            current_screen = 1;
                             setState(() {});
                           },
-                          icon: FaIcon(FontAwesomeIcons.house),
-                          color: (current_screen == 0)
+                          icon: FaIcon(FontAwesomeIcons.fileSignature),
+                          color: (current_screen == 1)
                               ? Colors.white
                               : Colors.black,
-                        ),
-                      ),
-                      Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: IconButton(
-                            onPressed: () {
-                              current_screen = 1;
-                              setState(() {});
-                            },
-                            icon: FaIcon(FontAwesomeIcons.fileSignature),
-                            color: (current_screen == 1)
-                                ? Colors.white
-                                : Colors.black,
-                          )),
-                      const Padding(
-                        padding: EdgeInsets.all(15),
-                      )
-                    ],
-                  ),
+                        )),
+                    const Padding(
+                      padding: EdgeInsets.all(15),
+                    )
+                  ],
                 ),
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(15),
+              ),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(15),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: IconButton(
+                        onPressed: () {
+                          current_screen = 2;
+                          setState(() {});
+                        },
+                        icon: FaIcon(FontAwesomeIcons.solidCommentDots),
+                        color:
+                            (current_screen == 2) ? Colors.white : Colors.black,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: IconButton(
-                          onPressed: () {
-                            current_screen = 2;
-                            setState(() {});
-                          },
-                          icon: FaIcon(FontAwesomeIcons.solidCommentDots),
-                          color: (current_screen == 2)
-                              ? Colors.white
-                              : Colors.black,
-                        ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: IconButton(
+                        onPressed: () {
+                          current_screen = 3;
+                          setState(() {});
+                        },
+                        icon: FaIcon(FontAwesomeIcons.briefcaseMedical),
+                        color:
+                            (current_screen == 3) ? Colors.white : Colors.black,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: IconButton(
-                          onPressed: () {
-                            current_screen = 3;
-                            setState(() {});
-                          },
-                          icon: FaIcon(FontAwesomeIcons.briefcaseMedical),
-                          color: (current_screen == 3)
-                              ? Colors.white
-                              : Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ]),
-        ),
+              ),
+            ]),
       ),
     ));
   }
@@ -260,13 +275,16 @@ class _HomePageState extends State<HomePage> {
 
   List<dynamic> data = [];
 
-  Future sol() async {
-    await log_in("akshat@gmail.com", "1234567");
+  Future sol(String email, String password) async {
+    await log_in(email, password);
     data = await get_data(token);
   }
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as User;
+    print(args.userEmail);
+    print(args.userPassword);
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -307,13 +325,14 @@ class _HomePageState extends State<HomePage> {
                         },
                         child: CircleAvatar(
                           backgroundImage: AssetImage("images/img2.jpg"),
+                          radius: 20,
                         ),
                       ),
                       SizedBox(
                         width: 10,
                       ),
                       Text(
-                        "Hi, Akshat",
+                        "Hello👋",
                         style: TextStyle(
                             fontWeight: FontWeight.w600, fontSize: 18),
                       ),
@@ -340,7 +359,7 @@ class _HomePageState extends State<HomePage> {
                               children: [
                                 Category(name: "Blood ", data: data[0]),
                                 Category(name: "Medicine", data: data[1]),
-                                Category(name: "Fund Raising", data: data[3]),
+                                // Category(name: "Fund Raising", data: data[3]),
                                 Category(name: "Others", data: data[2]),
                               ],
                             );
@@ -351,7 +370,7 @@ class _HomePageState extends State<HomePage> {
                             child: CircularProgressIndicator(),
                           );
                         },
-                        future: sol(),
+                        future: sol(args.userEmail, args.userPassword),
                       ),
                     ),
                   )
