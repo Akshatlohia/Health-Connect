@@ -4,26 +4,17 @@ import 'package:flutter/widgets.dart';
 import 'package:health_connect/first_screen.dart';
 import 'package:health_connect/screens/create_request.dart';
 import 'package:health_connect/chat_screen.dart';
-import 'package:health_connect/personal_chat.dart';
-import 'package:health_connect/screens/details.dart';
 import 'package:health_connect/screens/profile_screen.dart';
 import 'package:health_connect/screens/signin.dart';
-import 'package:health_connect/screens/signup.dart';
 import 'package:health_connect/widgets/category.dart';
-import 'package:health_connect/widgets/my_card.dart';
 import 'screens/firstaid.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_connect/my_requests.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'new_event.dart';
 import 'firebase_options.dart';
-import 'package:health_connect/create_request_1.dart';
-import 'screens/signin.dart';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:health_connect/networking.dart';
-import 'screens/firstAidScreens/low_bp.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -99,7 +90,7 @@ class _MyAppState extends State<MyApp> {
       HomePage(),
       MyRequests(userEmail: args.userEmail, userPassword: args.userPassword),
       ChatScreen(userEmail: args.userEmail, userPassword: args.userPassword),
-      FirstAid()
+      FirstAid(userEmail: args.userEmail, userPassword: args.userPassword)
     ];
     print(args.userEmail);
     print(args.userPassword);
@@ -280,11 +271,14 @@ class _HomePageState extends State<HomePage> {
     data = await get_data(token);
   }
 
+  var userData;
+  Future get_user_data(String email, String password) async {
+    userData = await log_in(email, password);
+  }
+
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as User;
-    print(args.userEmail);
-    print(args.userPassword);
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -317,11 +311,16 @@ class _HomePageState extends State<HomePage> {
                   Row(
                     children: [
                       GestureDetector(
-                        onTap: () {
+                        onTap: () async {
+                          await get_user_data(
+                              args.userEmail, args.userPassword);
+                          // print(userData);
+                          String userName = userData["userObject"]["name"];
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ProfilePage()));
+                                  builder: (context) => ProfilePage(
+                                      name: userName, email: args.userEmail)));
                         },
                         child: CircleAvatar(
                           backgroundImage: AssetImage("images/img2.jpg"),
@@ -355,11 +354,11 @@ class _HomePageState extends State<HomePage> {
                         builder: (context, snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.done) {
+                            // print(data[1]);
                             return ListView(
                               children: [
                                 Category(name: "Blood ", data: data[0]),
                                 Category(name: "Medicine", data: data[1]),
-                                // Category(name: "Fund Raising", data: data[3]),
                                 Category(name: "Others", data: data[2]),
                               ],
                             );

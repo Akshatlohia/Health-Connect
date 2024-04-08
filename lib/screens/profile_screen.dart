@@ -3,13 +3,17 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_connect/screens/details.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  ProfilePage({required this.name, required this.email});
 
+  String name;
+  String email;
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  String age = '', gender = '', bloodgroup = '', phoneNo = '';
+  List<String> details = [];
   @override
   @override
   Widget build(BuildContext context) {
@@ -21,9 +25,21 @@ class _ProfilePageState extends State<ProfilePage> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
-            onPressed: () {
-              Navigator.push(
+            onPressed: () async {
+              details = await Navigator.push(
                   context, MaterialPageRoute(builder: (context) => Details()));
+              print(details);
+
+              setState(() {
+                phoneNo = details[0];
+                age = details[1];
+                gender = details[2].trim();
+                bloodgroup = details[3].trim();
+                print(phoneNo);
+                print(age);
+                print(gender);
+                print(bloodgroup);
+              });
             },
           ),
           body: Stack(
@@ -59,7 +75,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     padding: const EdgeInsets.all(8.0),
                     child: Center(
                         child: Text(
-                      "Akshat Lohia",
+                      widget.name,
                       style:
                           TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     )),
@@ -82,21 +98,21 @@ class _ProfilePageState extends State<ProfilePage> {
                             FontAwesomeIcons.user,
                             color: Colors.red,
                           ),
-                          title: Text("Akshat Lohia"),
+                          title: Text(widget.name),
                         ),
                         ListTile(
                           leading: FaIcon(
                             FontAwesomeIcons.envelope,
                             color: Colors.red,
                           ),
-                          title: Text("akshat@gmail.com"),
+                          title: Text(widget.email),
                         ),
                         ListTile(
                           leading: FaIcon(
                             FontAwesomeIcons.phone,
                             color: Colors.red,
                           ),
-                          title: Text("+91-0123456789"),
+                          title: Text(phoneNo),
                         ),
                         ListTile(
                           leading: Icon(
@@ -104,7 +120,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             color: Colors.red,
                             size: 35,
                           ),
-                          title: Text("Male"),
+                          title: Text(gender),
                         ),
                         ListTile(
                           leading: Icon(
@@ -112,7 +128,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             color: Colors.red,
                             size: 35,
                           ),
-                          title: Text("Age"),
+                          title: Text(age),
                         ),
                         ListTile(
                           leading: Icon(
@@ -120,7 +136,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             color: Colors.red,
                             size: 35,
                           ),
-                          title: Text("O+ ve"),
+                          title: Text(bloodgroup),
                         ),
                       ],
                     ),

@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:health_connect/networking.dart';
 
 class PersonalChat extends StatefulWidget {
-  PersonalChat({required this.id, required this.user_id});
+  PersonalChat(
+      {required this.id, required this.user_id, required this.user_name});
 
   String id;
   String user_id;
+  String user_name;
 
   @override
   _PersonalChatState createState() => _PersonalChatState();
@@ -40,7 +42,7 @@ class _PersonalChatState extends State<PersonalChat> {
                 width: 10,
               ),
               Text(
-                "Samarth",
+                widget.user_name,
                 style: TextStyle(color: Colors.black),
               )
             ],
@@ -100,6 +102,7 @@ class _PersonalChatState extends State<PersonalChat> {
                   onChanged: (value) {
                     message = value;
                   },
+                  style: TextStyle(color: Colors.white),
                   controller: fieldText,
                   decoration: InputDecoration(
                     hintText: "Type text here ...",
@@ -111,9 +114,12 @@ class _PersonalChatState extends State<PersonalChat> {
                     suffixIcon: IconButton(
                         icon: Icon(Icons.send),
                         onPressed: () async {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      super.widget));
                           await send_chat(widget.user_id, message);
-                          clearText();
-                          setState(() {});
                         }),
                   )),
             ),

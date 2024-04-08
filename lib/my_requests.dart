@@ -25,6 +25,11 @@ class _MyRequestsState extends State<MyRequests> {
     data = await get_my_requests();
   }
 
+  var userData;
+  Future get_user_data(String email, String password) async {
+    userData = await log_in(email, password);
+  }
+
   int ind = 0;
 
   @override
@@ -61,11 +66,16 @@ class _MyRequestsState extends State<MyRequests> {
                   Row(
                     children: [
                       GestureDetector(
-                        onTap: () {
+                        onTap: () async {
+                          await get_user_data(
+                              widget.userEmail, widget.userPassword);
+                          String userName = userData["userObject"]["name"];
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ProfilePage()));
+                                  builder: (context) => ProfilePage(
+                                      name: userName,
+                                      email: widget.userEmail)));
                         },
                         child: CircleAvatar(
                           backgroundImage: AssetImage("images/img2.jpg"),

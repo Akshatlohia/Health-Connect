@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:health_connect/networking.dart';
 import 'package:health_connect/screens/firstAidScreens/bee_sting.dart';
 import 'package:health_connect/screens/firstAidScreens/burns.dart';
 import 'package:health_connect/screens/firstAidScreens/drowning.dart';
@@ -8,13 +9,20 @@ import 'package:health_connect/screens/firstAidScreens/low_bp.dart';
 import 'package:health_connect/screens/profile_screen.dart';
 
 class FirstAid extends StatefulWidget {
-  const FirstAid({Key? key}) : super(key: key);
+  String userEmail, userPassword;
+
+  FirstAid({required this.userEmail, required this.userPassword});
 
   @override
   State<FirstAid> createState() => _FirstAidState();
 }
 
 class _FirstAidState extends State<FirstAid> {
+  var userData;
+  Future get_user_data(String email, String password) async {
+    userData = await log_in(email, password);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -51,11 +59,16 @@ class _FirstAidState extends State<FirstAid> {
                     child: Row(
                       children: [
                         GestureDetector(
-                          onTap: () {
+                          onTap: () async {
+                            await get_user_data(
+                                widget.userEmail, widget.userPassword);
+                            String userName = userData["userObject"]["name"];
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ProfilePage()));
+                                    builder: (context) => ProfilePage(
+                                        name: userName,
+                                        email: widget.userEmail)));
                           },
                           child: CircleAvatar(
                             backgroundImage: AssetImage("images/img2.jpg"),

@@ -123,6 +123,7 @@ class _CreateRequestState extends State<CreateRequest> {
                               child: DropdownButton<String>(
                                 isExpanded: true,
                                 focusColor: Colors.white,
+                                underline: Container(),
                                 // value: _chosenValue,
                                 //elevation: 5,
                                 style: TextStyle(color: Colors.white),
@@ -304,6 +305,7 @@ class _CreateRequestState extends State<CreateRequest> {
                     onPressed: () async {
                       await create_request(
                           location, need, type, count.toString(), description);
+                      Navigator.pop(context);
                     },
                     child: SizedBox(
                         width: MediaQuery.of(context).size.width / 1.5,

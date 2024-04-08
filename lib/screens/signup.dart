@@ -93,6 +93,7 @@ class _SignUpState extends State<SignUp> {
                         onChanged: (text) {
                           // email = text;
                         },
+                        obscureText: true,
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           fillColor: Color(0xFFFF6A6A),
@@ -109,7 +110,6 @@ class _SignUpState extends State<SignUp> {
                       child: ElevatedButton(
                           onPressed: () async {
                             await sign_up(name, email, password);
-                            print('3');
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -128,7 +128,7 @@ class _SignUpState extends State<SignUp> {
                               width: MediaQuery.of(context).size.width / 1.2,
                               child: Center(
                                   child: Text(
-                                "Sign Up",
+                                "Register",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 20,

@@ -42,7 +42,7 @@ Future log_in(String email, String password) async {
 
   print(response.statusCode);
   var data = jsonDecode(response.body);
-  //print(data);
+  // print(data);
   token = data["token"];
   return data;
 }
@@ -77,7 +77,7 @@ Future get_data(String fid) async {
     },
   );
   print(response.statusCode);
-  //print(response.body);
+  // print(response.body);
 
   List<dynamic> data = (json.decode(response.body));
 
@@ -260,44 +260,44 @@ Future update_request(String id) async {
         'Authorization': 'Bearer $token',
       },
       body: jsonEncode({"id": id, "completed": true}));
-  List<dynamic> data = json.decode(response.body);
+  Map<String, dynamic> data = json.decode(response.body);
   return data;
 }
 
-Future raise_funds(
-    String amount, String description, String link, String name) async {
-  print("Hello");
-  http.Response response = await http.post(
-      Uri.parse("http://13.126.226.188:3000/requests/addRequest"),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer $token',
-      },
-      body: jsonEncode({
-        "title": name,
-        "driveLink": link,
-        "needed": "Fund Raiser",
-        "quantity": amount,
-        "description": description
-      }));
-
-  print(response.body);
-
-  await send_notif(description);
-  // var temp = json.decode(response.body);
-  // String chat_id = temp["chat"]["_id"];
-  //
-  // return chat_id;
-}
-
-Future update_fund(String id, int amount) async {
-  //print(token);
-  http.Response response = await http.patch(
-      Uri.parse("http://13.126.226.188:3000/requests/updateRequest"),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer $token',
-      },
-      body: jsonEncode({"id": id, "completedAmount": amount}));
-  print(response.body);
-}
+// Future raise_funds(
+//     String amount, String description, String link, String name) async {
+//   print("Hello");
+//   http.Response response = await http.post(
+//       Uri.parse("http://13.126.226.188:3000/requests/addRequest"),
+//       headers: <String, String>{
+//         'Content-Type': 'application/json; charset=UTF-8',
+//         'Authorization': 'Bearer $token',
+//       },
+//       body: jsonEncode({
+//         "title": name,
+//         "driveLink": link,
+//         "needed": "Fund Raiser",
+//         "quantity": amount,
+//         "description": description
+//       }));
+//
+//   print(response.body);
+//
+//   await send_notif(description);
+//   // var temp = json.decode(response.body);
+//   // String chat_id = temp["chat"]["_id"];
+//   //
+//   // return chat_id;
+// }
+//
+// Future update_fund(String id, int amount) async {
+//   //print(token);
+//   http.Response response = await http.patch(
+//       Uri.parse("http://13.126.226.188:3000/requests/updateRequest"),
+//       headers: <String, String>{
+//         'Content-Type': 'application/json; charset=UTF-8',
+//         'Authorization': 'Bearer $token',
+//       },
+//       body: jsonEncode({"id": id, "completedAmount": amount}));
+//   print(response.body);
+// }

@@ -61,7 +61,7 @@ class MyCard extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 5),
+                          horizontal: 20, vertical: 2),
                       child: Row(
                         children: [
                           Image(image: AssetImage("images/2.png")),
@@ -80,7 +80,7 @@ class MyCard extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 5),
+                          horizontal: 20, vertical: 2),
                       child: Row(
                         children: [
                           Image(image: AssetImage("images/3.png")),
@@ -99,7 +99,7 @@ class MyCard extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 5),
+                          horizontal: 20, vertical: 2),
                       child: Row(
                         children: [
                           Image(image: AssetImage("images/1.png")),
@@ -116,6 +116,27 @@ class MyCard extends StatelessWidget {
                         ],
                       ),
                     ),
+                    data["bType"] == "Type"
+                        ? Container()
+                        : Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 2),
+                            child: Row(
+                              children: [
+                                Image(image: AssetImage("images/4.png")),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  data["bType"],
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 12,
+                                      color: Color(0xFFB32525)),
+                                ),
+                              ],
+                            ),
+                          ),
                   ],
                 )
               ],
@@ -150,6 +171,7 @@ class AlertBox extends StatelessWidget {
                         builder: (context) => PersonalChat(
                               id: id,
                               user_id: data["createdBy"],
+                              user_name: data["name"],
                             )));
                 // await create_request(location, need, type, count.toString(), description);
                 // Navigator.push(context, MaterialPageRoute(builder: (context)  => HomePage()));

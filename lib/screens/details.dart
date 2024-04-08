@@ -8,7 +8,10 @@ class Details extends StatefulWidget {
 }
 
 class _DetailsState extends State<Details> {
-  String age = ' ', gender = '  Gender', bloodgroup = '  Blood Group';
+  String age = ' ',
+      gender = '  Gender',
+      bloodgroup = '  Blood Group',
+      phoneNo = ' ';
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -35,8 +38,31 @@ class _DetailsState extends State<Details> {
                           const EdgeInsets.only(left: 20.0, right: 20, top: 20),
                       child: TextField(
                         onChanged: (text) {
+                          phoneNo = '+91-$text';
+                        },
+                        keyboardType: TextInputType.phone,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                        decoration: InputDecoration(
+                          fillColor: Color(0xFFFF6A6A),
+                          filled: true,
+                          contentPadding: EdgeInsets.all(20),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          hintText: 'Phone Number',
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(left: 20.0, right: 20, top: 20),
+                      child: TextField(
+                        onChanged: (text) {
                           age = text;
                         },
+                        keyboardType: TextInputType.number,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
@@ -168,7 +194,10 @@ class _DetailsState extends State<Details> {
                       padding:
                           const EdgeInsets.only(left: 20.0, right: 20, top: 20),
                       child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pop(
+                                context, [phoneNo, age, gender, bloodgroup]);
+                          },
                           style: ButtonStyle(
                             shape: MaterialStateProperty.all<
                                 RoundedRectangleBorder>(RoundedRectangleBorder(

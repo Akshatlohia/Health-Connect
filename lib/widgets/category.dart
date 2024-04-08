@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'my_card.dart';
-import 'my_card2.dart';
 
 class Category extends StatefulWidget {
   Category({required this.name, required this.data});
@@ -15,6 +14,7 @@ class Category extends StatefulWidget {
 class _CategoryState extends State<Category> {
   @override
   Widget build(BuildContext context) {
+    widget.data.removeWhere((item) => item['completed'] == true);
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,11 +31,13 @@ class _CategoryState extends State<Category> {
             width: MediaQuery.of(context).size.width,
             child: ListView.builder(
               itemCount: widget.data.length,
-              itemBuilder: (BuildContext context,int index){
-                return (widget.name=="Fund Raising") ? MyFCard(data: widget.data[index],show: 1,) : MyCard(data: widget.data[index],show: 1,);
+              itemBuilder: (BuildContext context, int index) {
+                return MyCard(
+                  data: widget.data[index],
+                  show: 1,
+                );
               },
               scrollDirection: Axis.horizontal,
-
             ),
           )
         ],

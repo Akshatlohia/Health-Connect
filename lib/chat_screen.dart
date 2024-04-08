@@ -21,6 +21,11 @@ class _ChatScreenState extends State<ChatScreen> {
     data = await get_user_chat();
   }
 
+  var userData;
+  Future get_user_data(String email, String password) async {
+    userData = await log_in(email, password);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -30,9 +35,14 @@ class _ChatScreenState extends State<ChatScreen> {
           title: Row(
             children: [
               GestureDetector(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ProfilePage()));
+                onTap: () async {
+                  await get_user_data(widget.userEmail, widget.userPassword);
+                  String userName = userData["userObject"]["name"];
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ProfilePage(
+                              name: userName, email: widget.userEmail)));
                 },
                 child: CircleAvatar(
                   backgroundImage: AssetImage("images/img2.jpg"),
@@ -70,8 +80,10 @@ class _ChatScreenState extends State<ChatScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => PersonalChat(
-                                        id: data[index]["chatId"],
-                                        user_id: data[index]["toId"])));
+                                          id: data[index]["chatId"],
+                                          user_id: data[index]["toId"],
+                                          user_name: data[index]["name"],
+                                        )));
                           },
                           leading: CircleAvatar(
                             backgroundImage: AssetImage("images/img2.jpg"),
