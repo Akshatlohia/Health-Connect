@@ -308,9 +308,28 @@ class _CreateRequestState extends State<CreateRequest> {
                   padding: const EdgeInsets.only(top: 25.0),
                   child: ElevatedButton(
                     onPressed: () async {
-                      await create_request(
-                          location, need, type, count.toString(), description);
-                      Navigator.pop(context);
+                      if (location.isEmpty ||
+                          count == 0 ||
+                          need == 'Select what you need' ||
+                          (need == 'Blood' && type == 'Type') ||
+                          description.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content:
+                                Text("Please fill in all the required fields."),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      } else {
+                        await create_request(
+                          location,
+                          need,
+                          type,
+                          count.toString(),
+                          description,
+                        );
+                        Navigator.pop(context);
+                      }
                     },
                     child: SizedBox(
                         width: MediaQuery.of(context).size.width / 1.5,

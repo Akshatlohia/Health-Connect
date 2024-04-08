@@ -11,14 +11,14 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  String name = "", email = "", password = "";
+  String name = "", email = "", password = "", confirmPassword = "";
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
-        // resizeToAvoidBottomInset: false,
         body: Column(
           children: [
             Container(
@@ -58,6 +58,7 @@ class _SignUpState extends State<SignUp> {
                         onChanged: (text) {
                           email = text;
                         },
+                        keyboardType: TextInputType.emailAddress,
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           fillColor: Color(0xFFFF6A6A),
@@ -91,7 +92,7 @@ class _SignUpState extends State<SignUp> {
                           const EdgeInsets.only(left: 20.0, right: 20, top: 10),
                       child: TextField(
                         onChanged: (text) {
-                          // email = text;
+                          confirmPassword = text;
                         },
                         obscureText: true,
                         style: TextStyle(color: Colors.white),
@@ -109,11 +110,23 @@ class _SignUpState extends State<SignUp> {
                           const EdgeInsets.only(left: 20.0, right: 20, top: 18),
                       child: ElevatedButton(
                           onPressed: () async {
-                            await sign_up(name, email, password);
-                            Navigator.push(
+                            if (password != confirmPassword) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                      "Password and confirm password do not match."),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            } else {
+                              await sign_up(name, email, password);
+                              Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => SignIn()));
+                                  builder: (context) => SignIn(),
+                                ),
+                              );
+                            }
                           },
                           style: ButtonStyle(
                             shape: MaterialStateProperty.all<

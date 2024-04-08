@@ -69,7 +69,7 @@ class _MyRequestsState extends State<MyRequests> {
                         onTap: () async {
                           await get_user_data(
                               widget.userEmail, widget.userPassword);
-                          String userName = userData["userObject"]["name"];
+                          String userName = userData[1]["userObject"]["name"];
                           Navigator.push(
                               context,
                               MaterialPageRoute(

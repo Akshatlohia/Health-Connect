@@ -87,11 +87,20 @@ class _SignInState extends State<SignIn> {
                       ),
                       child: ElevatedButton(
                           onPressed: () async {
-                            await log_in(email, password);
-                            print('login done');
-
-                            Navigator.pushNamed(context, "main",
-                                arguments: User(email, password));
+                            var result = await log_in(email, password);
+                            if (result[0] == 'success') {
+                              print('login done');
+                              Navigator.pushNamed(context, "main",
+                                  arguments: User(email, password));
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                      'Authentication failed. Please check your credentials.'),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            }
                           },
                           style: ButtonStyle(
                             shape: MaterialStateProperty.all<

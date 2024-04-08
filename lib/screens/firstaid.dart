@@ -62,7 +62,7 @@ class _FirstAidState extends State<FirstAid> {
                           onTap: () async {
                             await get_user_data(
                                 widget.userEmail, widget.userPassword);
-                            String userName = userData["userObject"]["name"];
+                            String userName = userData[1]["userObject"]["name"];
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

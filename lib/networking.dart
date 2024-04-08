@@ -1,4 +1,5 @@
 import 'dart:convert';
+// import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -30,21 +31,33 @@ Future sign_up(String name, String email, String password) async {
 
 Future log_in(String email, String password) async {
   print(email);
-  http.Response response =
-      await http.post(Uri.parse('http://13.126.226.188:3000/users/login'),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-          },
-          body: jsonEncode({
-            "email": email,
-            "password": password,
-          }));
+  try {
+    http.Response response =
+        await http.post(Uri.parse('http://13.126.226.188:3000/users/login'),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: jsonEncode({
+              "email": email,
+              "password": password,
+            }));
 
-  print(response.statusCode);
-  var data = jsonDecode(response.body);
-  // print(data);
-  token = data["token"];
-  return data;
+    print(response.statusCode);
+    var data = jsonDecode(response.body);
+    // print(data);
+    token = data["token"];
+    if (response.statusCode == 200) {
+      // Login successful
+      return ['success', data];
+      return data;
+    } else {
+      // Login failed due to authentication error
+      return 'Authentication error'; // Return specific error message
+    }
+  } catch (e) {
+    print('Exception during login: $e');
+    return 'Login error';
+  }
 }
 
 Future create_request(String location, String category, String btype,
@@ -154,7 +167,7 @@ Future send_notif(String description) async {
           headers: <String, String>{
             "Content-Type": "application/json",
             "Authorization":
-                "key=AAAA4YRk6rs:APA91bH2_1kwIM54DH4vE_259PCvtqZgezvYwDR9ir0wx2WvX35Ndu1-9N7r_IdDSXI-fG7wHY0VwH0KRMV2c4EN92OcgjGubtZRMQg_9f6wR57eGpGkV-ixSQFVMptgn7LdIEY8lZRs",
+                "key=AAAAoyInR4o:APA91bH6StbPXOLiD5xI75bp7hVmv-FVp17ozMzfwq56zT2I7_C6m-PQ09f7z8jqRcnwyeCk8yGSnnUUZsDVwRXAhbO8OBNrWVtY98Cb_vvOxA0gSmY32nb5n_HE7IwkAKa4AAdBTwoF",
           },
           body: jsonEncode({
             "to": "/topics/message",
@@ -170,12 +183,14 @@ Future send_notif(String description) async {
 }
 
 Future send_notif_personal(String description, String fid) async {
+  print(
+      '......................................................................................');
   http.Response response =
       await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
           headers: <String, String>{
             "Content-Type": "application/json",
             "Authorization":
-                "key=AAAA4YRk6rs:APA91bH2_1kwIM54DH4vE_259PCvtqZgezvYwDR9ir0wx2WvX35Ndu1-9N7r_IdDSXI-fG7wHY0VwH0KRMV2c4EN92OcgjGubtZRMQg_9f6wR57eGpGkV-ixSQFVMptgn7LdIEY8lZRs",
+                "key=AAAAoyInR4o:APA91bH6StbPXOLiD5xI75bp7hVmv-FVp17ozMzfwq56zT2I7_C6m-PQ09f7z8jqRcnwyeCk8yGSnnUUZsDVwRXAhbO8OBNrWVtY98Cb_vvOxA0gSmY32nb5n_HE7IwkAKa4AAdBTwoF",
           },
           body: jsonEncode({
             "to": "$fid",
@@ -232,9 +247,12 @@ Future send_chat(String id, String message) async {
           body: jsonEncode({"id": id, "message": message}));
 
   var temp = json.decode(response.body);
+  print(
+      "..................................................................................................");
+  print(temp);
   String chat_id = temp["chat"]["_id"];
-  print(temp["fId"]);
-  await send_notif_personal(message, temp["fId"]);
+  print(chat_id);
+  await send_notif_personal(message, chat_id);
 
   return chat_id;
 }
@@ -263,41 +281,3 @@ Future update_request(String id) async {
   Map<String, dynamic> data = json.decode(response.body);
   return data;
 }
-
-// Future raise_funds(
-//     String amount, String description, String link, String name) async {
-//   print("Hello");
-//   http.Response response = await http.post(
-//       Uri.parse("http://13.126.226.188:3000/requests/addRequest"),
-//       headers: <String, String>{
-//         'Content-Type': 'application/json; charset=UTF-8',
-//         'Authorization': 'Bearer $token',
-//       },
-//       body: jsonEncode({
-//         "title": name,
-//         "driveLink": link,
-//         "needed": "Fund Raiser",
-//         "quantity": amount,
-//         "description": description
-//       }));
-//
-//   print(response.body);
-//
-//   await send_notif(description);
-//   // var temp = json.decode(response.body);
-//   // String chat_id = temp["chat"]["_id"];
-//   //
-//   // return chat_id;
-// }
-//
-// Future update_fund(String id, int amount) async {
-//   //print(token);
-//   http.Response response = await http.patch(
-//       Uri.parse("http://13.126.226.188:3000/requests/updateRequest"),
-//       headers: <String, String>{
-//         'Content-Type': 'application/json; charset=UTF-8',
-//         'Authorization': 'Bearer $token',
-//       },
-//       body: jsonEncode({"id": id, "completedAmount": amount}));
-//   print(response.body);
-// }

@@ -315,7 +315,7 @@ class _HomePageState extends State<HomePage> {
                           await get_user_data(
                               args.userEmail, args.userPassword);
                           // print(userData);
-                          String userName = userData["userObject"]["name"];
+                          String userName = userData[1]["userObject"]["name"];
                           Navigator.push(
                               context,
                               MaterialPageRoute(
