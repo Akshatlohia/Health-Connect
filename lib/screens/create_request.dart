@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:health_connect/networking.dart';
 
@@ -208,6 +209,10 @@ class _CreateRequestState extends State<CreateRequest> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       child: TextFormField(
+                        maxLength: 35,
+                        // inputFormatters: [
+                        //   LengthLimitingTextInputFormatter(35),
+                        // ],
                         onChanged: (value) {
                           description = value;
                         },
