@@ -15,6 +15,7 @@ class _CategoryState extends State<Category> {
   @override
   Widget build(BuildContext context) {
     widget.data.removeWhere((item) => item['completed'] == true);
+    widget.data = widget.data.reversed.toList();
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

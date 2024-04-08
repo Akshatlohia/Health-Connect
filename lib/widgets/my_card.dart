@@ -10,6 +10,20 @@ class MyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String duration;
+    print(data);
+    DateTime createdAt = DateTime.parse(data['createdAt']);
+    DateTime currentTime = DateTime.now();
+    Duration difference = currentTime.difference(createdAt);
+    if (difference.inDays > 0) {
+      duration = '${difference.inDays} days ago';
+    } else if (difference.inHours > 0) {
+      duration = '${difference.inHours} hours ago';
+    } else if (difference.inMinutes > 0) {
+      duration = '${difference.inMinutes} minutes ago';
+    } else {
+      duration = '${difference.inSeconds} seconds ago';
+    }
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: GestureDetector(
@@ -53,6 +67,16 @@ class MyCard extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                             fontSize: 18,
                             color: Color(0xFFB32525)),
+                      ),
+                      Expanded(
+                        child: Text(
+                          duration,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              color: Color(0xFFB32525)),
+                          textAlign: TextAlign.right,
+                        ),
                       ),
                     ],
                   ),
