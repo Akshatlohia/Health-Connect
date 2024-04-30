@@ -1,17 +1,9 @@
-# health_connect
+# MedAid
 
-A new Flutter project.
+It is an  health emergency app. It deals with various medical emergencies such as blood, medicines or some other medical equipments.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# Health-Connect
+## Features of the app:-
+- Anyone who wants blood immediately can post on the app and every user of the app will get the notification.
+- People can also post if the need medicines or any other medical equipment like syringes.
+- Anyone who wants to help can respond to the queries rasied by others which will initiate a chat between the responder and the person in need on our app only.
+- App also has info about first-aid procedures that should be followed in case of common health emergencies like high blood pressure, bee sting, etc.
