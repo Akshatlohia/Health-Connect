@@ -9,9 +9,7 @@ It is an  health emergency app. It deals with various medical emergencies such a
 - App also has info about first-aid procedures that should be followed in case of common health emergencies like high blood pressure, bee sting, etc.
 
  ## Screenshots of the app:- 
-![Screenshot_20240430_100228](https://github.com/Akshatlohia/MedAid/assets/97466631/0b231a8e-594e-4af2-82f4-adc7e992cb2c)
-
-![165999435-7072ec6f-2ac9-4621-8ee8-696c77fc02bf](https://github.com/Akshatlohia/MedAid/assets/97466631/ee520e0a-5c14-4edf-bea4-59e21d8da971)
+![MergedImages (1)](https://github.com/Akshatlohia/MedAid/assets/97466631/9ce7e94f-92b4-4eab-b43a-67c376750c3b)
 
 <img width="177" alt="Screenshot 2024-04-08 at 10 04 48 PM" src="https://github.com/Akshatlohia/MedAid/assets/97466631/732a08e6-0b38-4422-8e8f-00af934be4ee">
 
