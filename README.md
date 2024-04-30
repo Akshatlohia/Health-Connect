@@ -15,10 +15,9 @@ It is an  health emergency app. It deals with various medical emergencies such a
 
 <img width="178" alt="Screenshot 2024-04-08 at 10 04 54 PM" src="https://github.com/Akshatlohia/MedAid/assets/97466631/f05f66cc-053b-44d9-a28f-a6027ead6527">
 
-![frontend2](https://github.com/Akshatlohia/MedAid/assets/97466631/38877491-614f-4e50-a10d-1ef4321a5d43)
+![MergedImages (2)](https://github.com/Akshatlohia/MedAid/assets/97466631/c5afddef-80fe-47d9-96c0-812687f93b96)
 ![165999457-0d54daa2-c721-4aab-9ba9-f8881e621564](https://github.com/Akshatlohia/MedAid/assets/97466631/ee4aa2bb-f07c-4cd0-8037-1a4a5f5bb0b4)
 
-![frontend4](https://github.com/Akshatlohia/MedAid/assets/97466631/b6f2d051-f8b2-4852-817d-ea0091549a02)
 ![166000210-9a729291-2566-496a-83bc-f695affb05b5 (1)](https://github.com/Akshatlohia/MedAid/assets/97466631/38740680-8528-440d-888b-e3a09d47b36c)
 ![166000210-9a729291-2566-496a-83bc-f695affb05b5](https://github.com/Akshatlohia/MedAid/assets/97466631/9f4573fe-9633-426f-9380-97580a745e23)
 ![165999764-fe4067d6-04f3-47dd-af76-c87fe4acff4c](https://github.com/Akshatlohia/MedAid/assets/97466631/4810af82-c6de-4a17-bf63-9761445243c5)
